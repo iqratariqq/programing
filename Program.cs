@@ -3,60 +3,59 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.IO;
 
-namespace manual3
+namespace selfTask
 {
     class Program
     {
-        public static int add(int num1,int num2)
-        {
-            return num1 + num2;
-        }
         static void Main(string[] args)
         {
-            //int num1, num2;
-            //Console.WriteLine("enter a number1");
-            //num1 = int.Parse(Console.ReadLine());
-            //Console.WriteLine("enter number2");
-            //num2 = int.Parse(Console.ReadLine());
-            //int result;
-            //result = add(num1, num2);
-            //Console.WriteLine("the sum is {0}", result);
-            //Console.ReadKey();
-            readFile();
-            //writeFile();
-        }
-        public static void readFile()
-        {
-            string path = "C:\\Users\\abdul sattar\\OneDrive\\Desktop\\OPP2\\WEEK1\\file.txt";
-            if(File.Exists(path))
+            float age,price,toysP,result,remaining=0;
+            Console.WriteLine("enter Lily's age: ");
+            age = float.Parse(Console.ReadLine());
+            Console.WriteLine("enter washing machine price: ");
+            price = float.Parse(Console.ReadLine());
+            Console.WriteLine("enter price of each toy: ");
+            toysP = float.Parse(Console.ReadLine());
+            result = Lily_money(age,toysP);
+            if (result>=price)
             {
-                StreamReader file = new StreamReader(path);
-                string input;
-                while((input=file.ReadLine()) != null)
-                {
-                    Console.WriteLine(input);
-                    
+                remaining = result - price;
+                Console.WriteLine("Yes {0}",remaining);
+            }
+           else
+            {
+                remaining = price-result;
+                Console.WriteLine("no {0}", remaining);
+            }
+            Console.Read();
+        }
+        public static float Lily_money(float age, float toyP)
+        {
+            float countOdd = 0,countEven=0;
+            float money =0,money2=0;
+            for (int x=1;x<=age; x++)
+            {
+                if(x%2==0)
+                { 
+                    money = money + 10;
+                    money2 = money2 + money;
+          
+                    countEven++;
+                   
                 }
-                file.Close();
+                else if(x%2!=0)
+                {
+                    countOdd++;
+                
+                }
             }
-            else
-            {
-                Console.WriteLine("not exists ");
-            }
-            Console.ReadKey();
-        }
-        public static void writeFile()
-        {
-            string path= "C:\\Users\\abdul sattar\\OneDrive\\Desktop\\OPP2\\WEEK1\\file.txt";
-            StreamWriter files = new StreamWriter(path,true);
-            Console.WriteLine();
-            files.WriteLine("my file");
-            files.Flush();
-            files.Close();
-            Console.ReadKey();
+            float SavedMoney = money2 - countEven;
+            float OddMoney = countOdd * toyP;
+            float totalMoney = SavedMoney + OddMoney;
+            return totalMoney;
 
         }
+
     }
 }
